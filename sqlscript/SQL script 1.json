@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 1",
+	"properties": {
+		"content": {
+			"query": "IF NOT EXISTS (SELECT * FROM sys.external_file_formats WHERE name = 'SynapseParquetFormat') \n\tCREATE EXTERNAL FILE FORMAT [SynapseParquetFormat] \n\tWITH ( FORMAT_TYPE = PARQUET)\nGO\n\nIF NOT EXISTS (SELECT * FROM sys.external_data_sources WHERE name = 'dtmove_mystaccnt_dfs_core_windows_net') \n\tCREATE EXTERNAL DATA SOURCE [dtmove_mystaccnt_dfs_core_windows_net] \n\tWITH (\n\t\tLOCATION   = 'https://mystaccnt.dfs.core.windows.net/dtmove', \n\t)\nGo\n\nCREATE EXTERNAL TABLE MovieData (\n\t[Make] varchar(8000),\n\t[Model] varchar(8000),\n\t[Type] varchar(8000),\n\t[Origin] varchar(8000),\n\t[DriveTrain] varchar(8000),\n\t[Length] varchar(8000)\n\t)\n\tWITH (\n\tLOCATION = 'Refined/Parquet/Az_DS.zip/Az_DS/cars.parquet',\n\tDATA_SOURCE = [dtmove_mystaccnt_dfs_core_windows_net],\n\tFILE_FORMAT = [SynapseParquetFormat]\n\t)\nGO\n\nSELECT TOP 100 * FROM MovieData\nGO\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"poolName": "Built-in",
+				"databaseName": "mydb"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
