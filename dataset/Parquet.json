@@ -1,0 +1,20 @@
+{
+	"name": "Parquet",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "sydbo-WorkspaceDefaultStorage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "Refined/Parquet",
+				"fileSystem": "dtmove"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
